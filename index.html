@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Movielytics</title>
+	<meta name="description" content="Description">
+	<meta name="author" content="x7bit">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+	<script type="text/javascript" src="js/isotope.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+	<link rel="icon" sizes="any" href="css/favicon.ico">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.11/c3.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<h1>Plex Movie<strong>lytics</strong></h1>
+	<section class="alert">
+		<h3 data-localize>Loading…</h3>
+		<div class="lds-hourglass"></div>
+	</section>
+	<section class="stats hidden">
+		<div class="statistics">
+			<div class="data-grid">
+				<h3 data-localize>Library Statistics</h3>
+				<div class="grid"></div>
+			</div>
+		</div>
+		<div class="latest">
+			<div class="thumb-grid">
+				<h3 data-localize>Latest movies added</h3>
+				<div class="grid"></div>
+			</div>
+		</div>
+		<div class="charts">
+			<div class="chart bar movies">
+				<h3 data-localize>Movies By Genre</h3>
+				<div class="movies-by-genre"></div>
+			</div>
+			<div class="chart bar movies">
+				<h3 data-localize>Movies By Country (Top 20)</h3>
+				<div class="movies-by-country"></div>
+			</div>
+			<div class="chart bar movies">
+				<h3 data-localize>Movies By Decade</h3>
+				<div class="movies-by-decade"></div>
+			</div>
+			<div class="chart pie movies">
+				<h3 data-localize>Movies By Studio (Top 50)</h3>
+				<div class="movies-by-studio"></div>
+			</div>
+		</div>
+	</section>
+	<section class="catalog hidden">
+		<hr />
+		<div class="controls">
+			<div class="title" data-localize>Sort:</div>
+			<div>
+				<button class="sort active" data-sort="name">
+					<span data-localize>Title</span>
+					<svg class="asc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-asc"></use></svg>
+					<svg class="desc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-desc"></use></svg>
+				</button>
+				<button class="sort" data-sort="dateReleased">
+					<span data-localize>Year</span>
+					<svg class="asc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-asc"></use></svg>
+					<svg class="desc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-desc"></use></svg>
+				</button>
+				<button class="sort" data-sort="ratingCritic">
+					<span data-localize>Critic</span>
+					<svg class="asc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-asc"></use></svg>
+					<svg class="desc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-desc"></use></svg>
+				</button>
+				<button class="sort" data-sort="ratingAudience">
+					<span data-localize>Audience</span>
+					<svg class="asc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-asc"></use></svg>
+					<svg class="desc" viewBox="0 0 8 8"><use xlink:href="#icon-sort-desc"></use></svg>
+				</button>
+			</div>
+		</div>
+		<hr />
+		<div class="controls">
+			<div class="title" data-localize>Search:</div>
+			<div>
+				<span class="filter-title-container">
+					<input class="filter-title-input" type="text" placeholder="Title, actor or director" data-localize-placeholder/>
+					<svg class="filter-title-clear" viewBox="0 0 16 16"><use xlink:href="#icon-clear"></use></svg>
+				</span>
+			</div>
+		</div>
+		<hr />
+		<div class="content">
+			<div class="grid-container"><div class="grid"></div></div>
+			<h2 class="no-results hidden" data-localize>No results…</h2>
+		</div>
+	</section>
+	<!-- svg -->
+	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<defs>
+		<g id="icon-link">
+			<path d="M5 2a1 1 0 0 1 0 2H4v8h8v-1a1 1 0 1 1 2 0v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm10-1v4.998a1 1 0 1 1-2 0V4.414L8.716 8.698a1 1 0 1 1-1.414-1.414L11.585 3h-1.59a1 1 0 0 1 0-2z" fill-rule="evenodd"></path>
+		</g>
+		<g id="icon-clear">
+			<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.293 4.293a1 1 0 0 1 1.414 0L8 6.586l2.293-2.293a1 1 0 1 1 1.414 1.414L9.414 8l2.293 2.293a1 1 0 0 1-1.414 1.414L8 9.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L6.586 8 4.293 5.707a1 1 0 0 1 0-1.414z" fill-rule="evenodd"/>
+		</g>
+		<g id="icon-sort-asc">
+			<path d="m2 0v6h-2l2.5 2 2.5-2h-2v-6zm2 0v1h2v-1zm0 2v1h3v-1zm0 2v1h4v-1z"/>
+		</g>
+		<g id="icon-sort-desc">
+			<path d="M2 0v6H0l2.5 2L5 6H3V0zm2 0v1h4V0zm0 2v1h3V2zm0 2v1h2V4z"/>
+		</g>
+	</defs>
+	</svg>
+	<!-- scripts -->
+	<script type="text/javascript" src="js/movies.js"></script>
+</body>
+</html>

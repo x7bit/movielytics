@@ -1,0 +1,16 @@
+{
+  "name": "plex_scrapper",
+  "version": "1.0.0",
+  "description": "Plex Media Server movies scrapper (xml + covers)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "x7bit",
+  "license": "ISC",
+  "dependencies": {
+    "gm": "^1.25.0",
+    "jsdom": "^22.1.0"
+  }
+}
