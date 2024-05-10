@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "gm": "^1.25.0",
-    "jsdom": "^22.1.0"
+    "jsdom": "^24.0.0"
   }
 }
