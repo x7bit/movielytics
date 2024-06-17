@@ -18,6 +18,7 @@ const downloadMain = async () => {
     const json = xmlToJson(xmlDoc.window.document);
     const movies = (json.MediaContainer ?? {}).Video ?? [];
     if (Array.isArray(movies) && movies.length) {
+      let downloadedCount = 0;
       let skippedCount = 0;
       const thumbList = [];
       const tmpFilePath = "../offline/tmp.jpg";
@@ -37,20 +38,22 @@ const downloadMain = async () => {
             await resizeImage(tmpFilePath, filePath, 300);
             fs.unlinkSync(tmpFilePath);
             console.log(`Downloaded thumb for "${title ?? "-"}"`);
+            downloadedCount++;
           }
         }
       }
+      let deletedCount = 0;
       const fileList = fs.readdirSync("../offline/thumbs");
       for (const fileName of fileList) {
         if (!thumbList.includes(fileName)) {
           fs.unlinkSync(`../offline/thumbs/${fileName}`);
-          console.log(`${fileName} deleted`);
+          deletedCount++;
         }
       }
-      if (skippedCount > 0) {
-        const isOne = skippedCount === 1;
-        console.log(`Skipped ${isOne ? "thumb" : "thumbs"} for ${skippedCount} ${isOne ? "movie" : "movies"}`);
-      }
+      if (downloadedCount > 0) console.log("");
+      console.log(`Downloaded thumbs for ${downloadedCount} ${downloadedCount === 1 ? "movie" : "movies"}`);
+      console.log(`Skipped thumbs for ${skippedCount} ${skippedCount === 1 ? "movie" : "movies"}`);
+      console.log(`Deleted thumbs for ${downloadedCount} ${deletedCount === 1 ? "movie" : "movies"}`);
     } else {
       console.log("No movies");
     }
