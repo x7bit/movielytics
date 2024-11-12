@@ -164,7 +164,7 @@ div.full {
 }
 /* data grids */
 .data-grid {
-	width:50%;
+	width:max(800px,50%);
 	margin:0 auto;
 }
 .data-grid .grid {
@@ -192,7 +192,7 @@ div.full {
 }
 /* thumb grids */
 .thumb-grid {
-	width:50%;
+	width:max(800px,50%);
 	margin:0 auto;
 }
 .thumb-grid .grid {
@@ -351,6 +351,7 @@ div.full {
 	overflow:hidden;
 	font-size:12px;
 	display:-webkit-box;
+	line-clamp:20;
 	-webkit-box-orient:vertical;
 	-webkit-line-clamp:20;
 }
@@ -382,6 +383,10 @@ div.full {
 	}
 }
 @media all and (max-width:800px) {
+	.data-grid, .thumb-grid {
+		display:block;
+		width:max(60%,300px);
+	}
 	.chart {
 		display:block;
 		width:calc(100% - 20px);
@@ -403,7 +408,7 @@ div.full {
 	}
 }
 @media all and (max-width:400px) {
-	.chart {
+	.data-grid, .thumb-grid, .chart {
 		display:block;
 		width:calc(100% - 10px);
 	}

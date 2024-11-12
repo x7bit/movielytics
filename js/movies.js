@@ -194,7 +194,7 @@ const renderStatsLatest = () => {
         const addedAtB = parseInt(entryB["@attributes"].addedAt);
         return addedAtB - addedAtA;
       });
-      latestEntries.splice(5);
+      latestEntries.splice(6);
     }
   });
 
